@@ -1,11 +1,11 @@
-site_name: IndigiDataAotearoa_
+site_name: IndigiDataAotearoa_IntroToR
 site_author: Genomics Aotearoa
 site_dir: public
 site_url: "https://genomicsaotearoa.github.io/IndigiDataAotearoa_IntroToR/"
 
 #Repository information
 
-repo_name:   GenomicsAotearoa/Intermediate-R
+repo_name:   GenomicsAotearoa/IndigiDataAotearoa_IntroToR
 repo_url: https://github.com/GenomicsAotearoa/IndigiDataAotearoa_IntroToR
 
 
