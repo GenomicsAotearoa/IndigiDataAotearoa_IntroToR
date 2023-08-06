@@ -1,17 +1,17 @@
-# Welcome Introduction to R!
+<h1><b>Welcome to Introduction to R at IndigiData Aotearoa</b></h1>
+
+## Preamble
+
+Goals:
+
+* What is R and why is it relevant for bioinformatics?
+* Introduction to coding in R: functions and objects
+* Use R to investigate genetic diversity between populations.
+* Use ggplot2 to create high quality images.
+
+
 
 For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
-## Commands
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
 
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
