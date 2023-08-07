@@ -392,4 +392,4 @@ Once you type a function, hitting the `Tab`
 inside the parentheses will show you the function's arguments and
 provide additional help for each of these arguments.
 
-![image](./figures/studio_contexthelp2.png)
+#![image](./figures/studio_contexthelp2.png)
