@@ -60,6 +60,7 @@ The 'names' function can be used to the column names:
 This function shows us the names of the nine columns: The first two tell us the SubjectID (an identifier for the individual from whom the data was collected) and Population (where the individual came from). The next seven names are "rs" followed by a string of numbers. These rs numbers are SNP names - each known SNP has a unique identifier. 
 
 What **are** SNPs?
+
 SNPs (Single Nucleotide Polymorphisms) are places in the genome where some individuals in the population have variation at a single DNA base (e.g., some people may have an "A" base at a certain location in the genome, while others have a "G" at that exact same location). The majority of SNPs don't have a (known) impact on health or function, but some do. One of the things we often ask about a SNP is how common is it in the population.
 
 
