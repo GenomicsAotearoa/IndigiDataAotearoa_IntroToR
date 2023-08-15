@@ -167,3 +167,32 @@ barplot(snpFreqs, beside=TRUE, legend.text=TRUE, ylim=c(0,1))
 
 These analyses can be repeated for different SNPs by changing the SNP ID
 (e.g., rs3826656) in the above commands.
+
+
+### Why look at these SNPs?
+
+The seven SNPs contained in this data set were not just randomly
+chosen - they are SNPs that have been found to be associated with
+altered disease risk. That is, an individual’s genotype at a particular
+position in the genome affects their risk of developing a particular
+disease. This is not absolute though, it really just raises or lowers
+the probability of disease - it doesn’t guarantee complete protection or
+susceptibility.
+
+| SNP        | Link                                          | Alleles | Nearby Gene | Disease                            |
+|------------|-----------------------------------------------|---------|-------------|------------------------------------|
+| rs3826656  | <http://www.snpedia.com/index.php/Rs3826656>  | A/G     | CD33        | Alzheimer’s Disease                |
+| rs13387042 | <http://www.snpedia.com/index.php/Rs13387042> | A/G     | DIRC3       | Breast Cancer                      |
+| rs4779584  | <http://www.snpedia.com/index.php/Rs4779584>  | T/C     | GREM1       | Colorectal Cancer                  |
+| rs2398162  | <http://www.snpedia.com/index.php/Rs2398162>  | A/G     | NR2F2       | Hypertension                       |
+| rs1344706  | <http://www.snpedia.com/index.php/Rs1344706>  | A/C     | ZNF408A     | Schizophrenia and Bipolar Disorder |
+| rs7659604  | <http://www.snpedia.com/index.php/Rs7659604>  | T/C     | TMEM155     | Type 2 Diabetes                    |
+| rs734553   | <http://www.snpedia.com/index.php/Rs734553>   | T/G     | SLC2A9      | Gout                               |
+
+For each SNP, increased risk of disease is associated with the minor
+allele. Variation in genotype frequencies across populations can help to
+explain some of the population-specific differences in rates of
+different diseases.
+
+Clicking on SNP IDs in the table above will link through to aditional
+information about each variant.
