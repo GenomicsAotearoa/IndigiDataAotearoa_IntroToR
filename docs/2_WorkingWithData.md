@@ -171,13 +171,7 @@ These analyses can be repeated for different SNPs by changing the SNP ID
 
 ### Why look at these SNPs?
 
-The seven SNPs contained in this data set were not just randomly
-chosen - they are SNPs that have been found to be associated with
-altered disease risk. That is, an individual’s genotype at a particular
-position in the genome affects their risk of developing a particular
-disease. This is not absolute though, it really just raises or lowers
-the probability of disease - it doesn’t guarantee complete protection or
-susceptibility.
+The seven SNPs contained in this data set were not just randomly chosen - they are SNPs that have been found to be associated with altered disease risk. That is, an individual’s genotype at a particular position in the genome affects their risk of developing a particular disease. This is not absolute though, it really just raises or lowers the probability of disease - it doesn’t guarantee complete protection or susceptibility.
 
 | SNP        | Link                                          | Alleles | Nearby Gene | Disease                            |
 |------------|-----------------------------------------------|---------|-------------|------------------------------------|
