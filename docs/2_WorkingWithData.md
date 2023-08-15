@@ -11,21 +11,21 @@
     === "Objectives"
 
         - Load publicly (freely) available data from The 1000 Genomes Project into R
-        - 
+        - Understand how SNP data varies between populations
 
 
 ## The data: Single Nucleotide Polymorphisms (SNPS) from the 1000 Genomes Project
 
 The data you will be working with today is publicly available high-throughput sequencing data from a resource called the 1000 genomes project. 
 
-We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (`/home/$USER/IndigiData_IntroToR/`). To read the 'snpData.txt' data file into R, we will use the read.table() function:
+We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (`/home/$USER/IndigiDataIntroToR/`). To read the 'snpData.txt' data file into R, we will use the read.table() function:
 
 !!! r-project "r"
 
     ```r
     # Read in the txt file and save it as 'snpData'
 
-    snpData <- read.table("/home/<USERID>/IndigiData_IntroToR/snpData.txt",sep='\t',header=T)
+    snpData <- read.table("/home/<USERID>/IndigiDataIntroToR/snpData.txt",sep='\t',header=T)
     ```
 
 Reminder: the format here is to create a new object (snpData) and store some information in it, in this case storing information that is obtained using the read.table function. The format for function is 'function(target of the function, refining or specifying the details)'.
@@ -71,3 +71,99 @@ To look at the full dataset, you can use the View() function:
     View(snpData)
     ```
 
+For each individual we can see the base pairs they have at the particular SNP location (locus) in the genome. Note that there are always two bases, one from each pair of chromosomes, so if a SNP is either an A or G an individual can be AA, AG, or GG. 
+
+The second column is called “Population”. We can make a table of this information to see how many individuals are present in each population (the “$” sign tells R to use the “Population” column from the “snpData”” object):
+
+``` r
+table(snpData$Population)
+```
+
+    ## 
+    ## AFR AMR EAS EUR SAS 
+    ## 661 347 504 503 489
+
+The super-population codes are:
+
+AFR, African; 
+AMR, Ad-Mixed American; 
+EAS, East Asian; 
+EUR, European;
+SAS, South Asian.
+
+Additional information about the composition of these populations can be
+found at:
+
+<http://www.internationalgenome.org/faq/which-populations-are-part-your-study>
+ 
+
+
+## Looking at SNP frequencies
+
+The other seven columns in the data set relate to specific single
+nucleotide polymorphisms (SNPs) in the genome - we have the genotype
+data for each SNP for every individual in the data set.
+
+We can use the “table” command again to summarize the genotype
+information for each SNP:
+
+``` r
+## Make a genotype frequency table for the first SNP
+table(snpData$rs3826656)
+```
+
+    ## 
+    ##   AA   AG   GG 
+    ## 1112  952  440
+
+We can also calculate the proportions associated with each genotype:
+
+``` r
+## Calculate proportions
+prop.table(table(snpData$rs3826656))
+```
+
+    ## 
+    ##        AA        AG        GG 
+    ## 0.4440895 0.3801917 0.1757188
+
+and examine differences in genotype frequencies across populations:
+
+``` r
+## Create contingeny table - genotypes across populations
+table(snpData$Population, snpData$rs3826656)
+```
+
+    ##      
+    ##        AA  AG  GG
+    ##   AFR 445 199  17
+    ##   AMR 225 109  13
+    ##   EAS  47 224 233
+    ##   EUR 312 161  30
+    ##   SAS  83 259 147
+
+``` r
+## And calculate proportions (rounded)
+round(prop.table(table(snpData$Population, snpData$rs3826656),1),2)
+```
+
+
+    ##      
+    ##         AA   AG   GG
+    ##   AFR 0.67 0.30 0.03
+    ##   AMR 0.65 0.31 0.04
+    ##   EAS 0.09 0.44 0.46
+    ##   EUR 0.62 0.32 0.06
+    ##   SAS 0.17 0.53 0.30
+
+These results can be plotted as a bar plot:
+
+``` r
+snpFreqs = t(prop.table(table(snpData$Population, snpData$rs3826656), 1))
+barplot(snpFreqs, beside=TRUE, legend.text=TRUE, ylim=c(0,1))
+```
+
+![images](./figures/snpFreqs.png)
+
+These analyses can be repeated for different SNPs by changing the SNP ID
+(e.g., rs3826656) in the above commands.
