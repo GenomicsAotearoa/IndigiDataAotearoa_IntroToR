@@ -95,6 +95,7 @@ This new dataset includes not just the super populations we worked with previous
 
 To examine population diversity we need to do two things:
 1. Create a data object of *only* the SNP genotype data (i.e., remove the first three columns).
+
 2. Convert the genotypes to allele counts (e.g., if we wanted to count the number of A's: TT, AT, AA becomes 0, 1, 2).
 
 Step 1:
@@ -105,7 +106,7 @@ Step 1:
     ## To do this we will take all the data from snpAns except rows 1, 2 and 3:
     snpAnsData = snpAns[,-c(1,2,3)]
     ```
-    
+
 Step 2:
 !!! r-project "r"
 
@@ -239,5 +240,7 @@ EUR (European), followed by EAS (East Asian). The AFR (African) super-population
 ### Key takeaways
 
 R has hundreds of functions that can do a wide range of tasks, from simple (view data, calculate mean, show you the range (min/max) values) to highly complex.
+
 R is an excellent programming language for statistical analyses of large data sets.
+
 Large, publicly available datasets are a tremendous resource. 

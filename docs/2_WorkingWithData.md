@@ -20,7 +20,7 @@ The data you will be working with today is publicly available high-throughput se
 
 We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (`/home/$USER/IndigiDataIntroToR/`). To read the 'snpData.txt' data file into R, we will use the read.table() function:
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     # Read in the txt file and save it as 'snpData'
@@ -32,7 +32,7 @@ Reminder: the format here is to create a new object (snpData) and store some inf
 
 Let's use some other functions to inspect the data and learn basic facts about the structure of our data object:
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     # The dim function will tell us how many rows (individuals) and columns the dataset contains:
@@ -46,7 +46,7 @@ This tells us there are 2504 rows and 9 columns. We know that the rows are indiv
 
 The 'names' function can be used to the column names:
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     names(snpData)
@@ -55,17 +55,17 @@ The 'names' function can be used to the column names:
 ??? success "Output"
 
     ```
-## [1] "SubjectID"  "Population" "rs3826656"  "rs13387042" "rs4779584"  "rs2398162"  "rs1344706"  "rs7659604"  "rs734553"
+    ## [1] "SubjectID"  "Population" "rs3826656"  "rs13387042" "rs4779584"  "rs2398162"  "rs1344706"  "rs7659604"  "rs734553"
     ```
 This function shows us the names of the nine columns: The first two tell us the SubjectID (an identifier for the individual from whom the data was collected) and Population (where the individual came from). The next seven names are "rs" followed by a string of numbers. These rs numbers are SNP names - each known SNP has a unique identifier. 
 
-What **are** SNPs?
+## What **are** SNPs?
 
 SNPs (Single Nucleotide Polymorphisms) are places in the genome where some individuals in the population have variation at a single DNA base (e.g., some people may have an "A" base at a certain location in the genome, while others have a "G" at that exact same location). The majority of SNPs don't have a (known) impact on health or function, but some do. One of the things we often ask about a SNP is how common is it in the population.
 
 
 To look at the full dataset, you can use the View() function:
-!!! r-project "r"
+!!! r-project
 
     ```r
     View(snpData)
@@ -75,13 +75,20 @@ For each individual we can see the base pairs they have at the particular SNP lo
 
 The second column is called “Population”. We can make a table of this information to see how many individuals are present in each population (the “$” sign tells R to use the “Population” column from the “snpData”” object):
 
-``` r
-table(snpData$Population)
-```
+!!! r-project
 
-    ## 
-    ## AFR AMR EAS EUR SAS 
-    ## 661 347 504 503 489
+    ``` r
+    table(snpData$Population)
+    ```
+
+??? success "Output"
+
+    ```
+     
+    AFR AMR EAS EUR SAS 
+    661 347 504 503 489
+    ```
+
 
 The super-population codes are:
 
@@ -107,14 +114,20 @@ data for each SNP for every individual in the data set.
 We can use the “table” command again to summarize the genotype
 information for each SNP:
 
+!!! r-project
 ``` r
 ## Make a genotype frequency table for the first SNP
 table(snpData$rs3826656)
 ```
 
-    ## 
-    ##   AA   AG   GG 
-    ## 1112  952  440
+??? success "Output"
+
+    ```
+      AA   AG   GG 
+     1112  952  440
+    ```
+
+
 
 We can also calculate the proportions associated with each genotype:
 

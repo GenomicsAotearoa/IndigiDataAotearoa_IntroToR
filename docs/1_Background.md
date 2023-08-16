@@ -150,15 +150,15 @@ Script`. Before we go any further, save your script by
 clicking the save/disk icon that is in the bar above the first line in
 the script editor, or click the `File` menu
 and select `save`. In the "Save File" window
-that opens, name your file **"genomics_r\_basics"**. The new script
-**genomics_r\_basics.R** should appear under "files" in the output pane.
+that opens, name your file **"indigidataIntroToR"**. The new script
+**indigidataIntroToR.R** should appear under "files" in the output pane.
 By convention, R scripts end with the file extension **.R**.
 
 ## Getting to work with R: navigating directories
 
 Now that we have covered the more aesthetic aspects of RStudio, we can
 get to work using some commands. We will write, execute, and save the
-commands we learn in our **genomics_r\_basics.R** script that is loaded
+commands we learn in our **indigidataIntroToR.R** script that is loaded
 in the Source pane. First, lets see what directory we are in. To do so,
 type the following command into the script:
 
@@ -215,9 +215,8 @@ directory you want to set as your working directory. To do so, inside of
 the parentheses, open a set of quotes. Inside the quotes enter a `/`
 which is the root directory for Linux. Next, use the
 `Tab` key, to take advantage of RStudio's
-Tab-autocompletion method, to select `home`, `dcuser`, and
-`dc_genomics_r` directory. The path in your script should look like
-this:
+Tab-autocompletion method, to select `home`, `user`, and
+`IndigiDataIntroToR` directory. The path in your script should look like this:
 
 !!! r-project
 
@@ -273,16 +272,22 @@ understand what is happening in any R script.
         **Notice**: Commands are case sensitive! 
 
 You have hopefully noticed a pattern - an R function has three key
-properties: - Functions have a name (e.g. `dir`, `getwd`); note that
-functions are case sensitive! - Following the name, functions have a
-pair of `()` - Inside the parentheses, a function may take 0 or more
+properties: 
+
+- Functions have a name (e.g. `dir`, `getwd`); note that
+functions are case sensitive! 
+
+- Following the name, functions have a
+pair of `()` 
+
+- Inside the parentheses, a function may take 0 or more
 arguments.
 
 An argument may be a specific input for your function and/or may modify
 the function's behavior. For example the function `round()` will round a
 number with a decimal:
 
-!!! r-project "r"
+!!! r-project
 
     ``` 
     # This will round a number to the nearest integer
@@ -296,7 +301,7 @@ this, but you may first need to read the help to find out how. To see
 the help (In R sometimes also called a "vignette") enter a `?` in front
 of the function name:
 
-!!! r-project "r"
+!!! r-project
     `round()`
 
 The "Help" tab will show you information (often, too much information).
@@ -306,7 +311,7 @@ If you look under "Arguments," we also see what arguments we can pass to
 this function to modify its behavior. You can also see a function's
 argument using the `args()` function:
 
-!!! r-project "r"
+!!! r-project
     `args(round)`
 
 
@@ -317,7 +322,7 @@ provide it, in contrast to `digits` where R will use the default value 0
 unless you explicitly provide a different value. We can explicitly set
 the digits parameter when we call the function:
 
-!!! r-project "r"
+!!! r-project
     `round(3.14159, digits = 2)`
 
 
@@ -326,14 +331,14 @@ function arguments separated by commas, R assumes that they are in the
 order you saw when we used `args()`. In the case below that means that
 `x` is 3.14159 and digits is 2.
 
-!!! r-project "r"
+!!! r-project
     `round(3.14159, 2)`
 
 Finally, what if you are using `?` to get help for a function in a
 package not installed on your system, such as when you are running a
 script which has dependencies.
 
-!!! r-project "r"
+!!! r-project
     `geom_point()`
 
 will return an error:
@@ -391,5 +396,3 @@ associated help:
 Once you type a function, hitting the `Tab`
 inside the parentheses will show you the function's arguments and
 provide additional help for each of these arguments.
-
-#![image](./figures/studio_contexthelp2.png)
