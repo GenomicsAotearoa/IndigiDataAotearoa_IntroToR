@@ -18,7 +18,7 @@
 
 We will now load a second dataset which contains a new set of SNPs. Rather than being medically relevant, these SNPs were chosen because they are informative about ancestry. That is, variation in their genotype frequencies tends to be associated with differences between population groups. 
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     ## Load ancestry data
