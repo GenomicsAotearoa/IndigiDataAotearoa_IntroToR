@@ -20,7 +20,7 @@ The data you will be working with today is publicly available high-throughput se
 
 We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (`/home/$USER/IndigiDataIntroToR/`). To read the 'snpData.txt' data file into R, we will use the read.table() function:
 
-!!! r-project
+!!! r-project 
 
     ```r
     # Read in the txt file and save it as 'snpData'
@@ -28,7 +28,9 @@ We have downloaded a (small) subset of the 1000 genomes data, called the file sn
     snpData <- read.table("/home/<USERID>/IndigiDataIntroToR/snpData.txt",sep='\t',header=T)
     ```
 
-Reminder: the format here is to create a new object (snpData) and store some information in it, in this case storing information that is obtained using the read.table function. The format for function is 'function(target of the function, refining or specifying the details)'.
+Here we used the read.table function to follow a file path, select a file (snpData.txt), and read it (with the help of some extra arguments like 'sep' and 'header' that tell R about the format of the file). 
+
+We've also done something new: we have taken the output of the read.table function and stored it in something called an object. In other languages we might use the term 'variable'. 
 
 Let's use some other functions to inspect the data and learn basic facts about the structure of our data object:
 

@@ -311,7 +311,7 @@ the help (In R sometimes also called a "vignette") enter a `?` in front
 of the function name:
 
 !!! r-project
-    `round()`
+    `?round()`
 
 The "Help" tab will show you information (often, too much information).
 You will slowly learn how to read and make sense of help files. Checking
