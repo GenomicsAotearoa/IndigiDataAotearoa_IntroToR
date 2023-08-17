@@ -18,7 +18,7 @@
 
 We will now load a second dataset which contains a new set of SNPs. Rather than being medically relevant, these SNPs were chosen because they are informative about ancestry. That is, variation in their genotype frequencies tends to be associated with differences between population groups. 
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     ## Load ancestry data
@@ -26,7 +26,12 @@ We will now load a second dataset which contains a new set of SNPs. Rather than 
     ## Check dimensionality of data
     dim(snpAns)
     ```
-    ## [1] 2504 2305
+
+??? success "Output"
+
+    ```
+    [1] 2504 2305
+    ```  
 
 Now we now have a *much* larger dataset: 2504 individuals and 2302 SNP genotypes for each individual. 
 **Note**: I've said there are 2302 SNP genotypes, but the dim function above returned 2305 columns. Think back to some of the functions you have used earlier and use one (or more) to check what the other three columns are. 
@@ -35,7 +40,7 @@ Now we now have a *much* larger dataset: 2504 individuals and 2302 SNP genotypes
 
         A)
 
-        !!! r-project "r"
+        !!! r-project
 
             ```r
             View(snpAns)
@@ -44,7 +49,7 @@ Now we now have a *much* larger dataset: 2504 individuals and 2302 SNP genotypes
         
         B)
 
-        !!! r-project "r"
+        !!! r-project
 
             ```r
             names(snpAns)
@@ -53,7 +58,7 @@ Now we now have a *much* larger dataset: 2504 individuals and 2302 SNP genotypes
 
 This new dataset includes not just the super populations we worked with previously, but also sub-populations. We can create a table that breaks down each super population into subpopulations:
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     table(snpAns$SubPopulation, snpAns$Population)
@@ -94,12 +99,13 @@ This new dataset includes not just the super populations we worked with previous
 
 
 To examine population diversity we need to do two things:
+
 1. Create a data object of *only* the SNP genotype data (i.e., remove the first three columns).
 
-2. Convert the genotypes to allele counts (e.g., if we wanted to count the number of A's: TT, AT, AA becomes 0, 1, 2).
+2. Convert the genotypes to allele counts (e.g., if we wanted to count the number of A's: TT, AT, AA becomes 0, 1, 2, respectively).
 
 Step 1:
-!!! r-project "r"
+!!! r-project
 
     ```r
     ## Create a new object called snpAnsDat which contains only the SNP data. 
@@ -108,7 +114,7 @@ Step 1:
     ```
 
 Step 2:
-!!! r-project "r"
+!!! r-project
 
     ```r
     ## Load a custom function to convert genotypes (AA, AT, TT) into allele counts (2, 1, 0 if we are counting A's).
@@ -122,7 +128,7 @@ We now have a new object that contains just the SNP data represented by allele c
 
 Let's look at this new data set using View():
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     View(snpAnsCount)
@@ -140,7 +146,7 @@ The idea is to find the most important variation in the data, and examine the sa
 variation across genomic loci (i.e., SNPs). Rather than looking at 2302 dimensions of data, we end up looking at variation across just 2 or 3 dimensions - each dimension is defined by a combination of SNPs which vary in a similar way across the individuals in the study.
 
 
-!!! r-project "r"
+!!! r-project
 
     ```r
     ## Load custom function to perform principal components analysis
@@ -153,7 +159,7 @@ variation across genomic loci (i.e., SNPs). Rather than looking at 2302 dimensio
     
 To visualise the populations across the principal components, we need to define colours for each populations. It doesn't matter what colours you choose, but lets go with: AFR (brown), AMR (red), EAS (purple), EUR (blue), SAS (green).
 
-!!! r-project "r"
+!!! r-project 
 ``` r
 ## Create an object relating to the population data
 ansPop = snpAns$Population
@@ -180,6 +186,7 @@ table(popCol,ansPop)
 
 Now we can plot the principal components and colour the points based on the population each sample belongs to.
 
+!!! r-project
 ``` r
 ## Load a custom plotting function to generate the plots:
 source('plotPCA.R')
@@ -188,19 +195,22 @@ source('plotPCA.R')
 plotPCA(pca, popCol)
 ```
 
-![](GENE360-popDiv_files/figure-gfm/unnamed-chunk-18-1.png)<!-- -->
+![images](./figures/pcaPlot.png)
+
+
 
 From the plots we can see that samples from the same population tend to cluster together, and that the first three principal components do a reasonable job of capturing the genetic diversity between the populations.
 
 With the `scatterplot3d` package, you can plot the first three principal components at once (i.e., combining the information from the three scatterplots above). This shows that the European (EUR), East Asian (EAS) and South Asian (SAS) super-populations are relatively homogeneous, while the Ad-Mixed American (AMR) and African (AFR) super-populations exhibit greater variation, suggesting admixture within these groups.
 
+!!! r-project
 ``` r
 library(scatterplot3d)
 scatterplot3d(pca[,1], pca[,2], pca[,3], color=popCol, pch=16,
               cex.symbols=0.5, xlab="PC1", ylab="PC2", zlab="PC3")
 ```
 
-![](GENE360-popDiv_files/figure-gfm/unnamed-chunk-19-1.png)<!-- -->
+![images](./figures/scatterplot3d.png)
 
 
 ## Phylogenetic trees
@@ -211,6 +221,7 @@ These tree diagrams group items together based on similarity scores. In this set
 
 To calculate similarities, we need to create a set of “average” genotypes for each population. One way to do this is to calculate the frequency of the major homozygote for each SNP in each population.
 
+!!! r-project
 ``` r
 ## Load custom function for calculating major homozygote frequency:
 source('calcMajorFreq.R')
@@ -220,12 +231,13 @@ source('calcMajorFreq.R')
 popFreqs = calcMajorFreq(snpAnsCount, ansPop)
 ```
 
+!!! r-project
 ``` r
 ## Make a cluster tree based on these frequencies
 plot(hclust(dist(popFreqs)),hang=-1)
 ```
 
-![](GENE360-popDiv_files/figure-gfm/unnamed-chunk-21-1.png)<!-- -->
+![images](./figures/clusterDendrogram.png)
 
 The way in which the “leaves” of the tree cluster, reflects the similarity between the items analysed. In this case the populations are grouped based on their genetic similarity, as measured by these particular loci. Here it appears that the AMR (Ad-Mixed American), and SAS (South Asian) super-populations are most genetically similar, then
 EUR (European), followed by EAS (East Asian). The AFR (African) super-population is the most genetically dissimilar relative to the others. It is likely that these groupings reflect (to some degree) migration patterns and shared ancestry experienced by these populations.
@@ -242,5 +254,7 @@ EUR (European), followed by EAS (East Asian). The AFR (African) super-population
 R has hundreds of functions that can do a wide range of tasks, from simple (view data, calculate mean, show you the range (min/max) values) to highly complex.
 
 R is an excellent programming language for statistical analyses of large data sets.
+
+R is *really* useful for making quick plots and tables to visualise your data.
 
 Large, publicly available datasets are a tremendous resource. 

@@ -37,13 +37,13 @@ R:
     -   **R is [open
         source](https://en.wikipedia.org/wiki/Open-source_software)**. This
         means R is free - an advantage if you are at an institution where
-        you have to pay for your own MATLAB or SAS license. Open source, is
+        you have to pay for your own MATLAB or SAS license. Open source is
         important to your colleagues in parts of the world where expensive
         software in inaccessible. It also means that R is actively developed
         by a community (see [r-project.org](https://www.r-project.org/)),
         and there are regular updates.
     -   **R is widely used**. Ok, maybe programming is a popularity contest.
-        Because, R is used in many areas (not just bioinformatics), you are
+        Because R is used in many areas (not just bioinformatics), you are
         more likely to find help online when you need it. Chances are,
         almost any error message you run into, someone else has already
         experienced.
@@ -198,9 +198,8 @@ include a comment on the purpose of commands you are learning, e.g.:
          the source. You can run any command in the Console, however,
          executing it from the source script will make it easier for us to
          record what we have done, and ultimately run an entire script,
-         instead of entering commands one-by-one. {: .solution} {:
-         .challenge}
-
+         instead of entering commands one-by-one. 
+         
 For the purposes of this exercise we want you to be in the directory
 `"/home/<USERID>/IndigiDataIntroToR"`. What if you weren't? You can set your home
 directory using the `setwd()` command. Enter this command in your
@@ -208,7 +207,13 @@ script, but *don't run* this yet.
 
 !!! r-project
 
-    `# This sets the working directory setwd()`
+    ```r
+    # This sets the working directory 
+    
+    setwd()
+    ```
+
+
 
 You may have guessed, you need to tell the `setwd()` command what
 directory you want to set as your working directory. To do so, inside of
@@ -220,7 +225,11 @@ Tab-autocompletion method, to select `home`, `user`, and
 
 !!! r-project
 
-    `# This sets the working directory setwd("/home/<USERID>/IndigiDataIntroToR")`
+    ```r
+    # This sets the working directory 
+    
+    setwd("/home/<USERID>/IndigiDataIntroToR")
+    ```
 
 When you run this command, the console repeats the command, but gives
 you no output. Instead, you see the blank R prompt: `>`.
@@ -243,7 +252,7 @@ Wait, what was the last 2 minutes about? Well, setting your working
     allow you to specify file paths is a way that is more operating system
     independent. See Jenny Bryan's [blog
     post](https://www.tidyverse.org/articles/2017/12/workflow-vs-script/)
-    for this and other R tips. {: .callout}   
+    for this and other R tips.    
 
 ## Using functions in R, without needing to master them
 
