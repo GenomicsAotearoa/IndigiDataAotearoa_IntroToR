@@ -118,6 +118,17 @@ Step 2:
 
     ```r
     ## Load a custom function to convert genotypes (AA, AT, TT) into allele counts (2, 1, 0 if we are counting A's).
+    alleleCounts <- function(x){
+        gt <- names(table(x))
+        alleles <- unique(unlist(strsplit(gt,'')))
+        oo <- order(sapply(alleles,function(z) sum(grep(z,x))),decreasing=T)
+        alleles <- alleles[oo]
+        geno<-c(paste(alleles[1],alleles[1],collapse='',sep=''),
+          paste(sort(alleles),collapse='',sep=''),  
+          paste(alleles[2],alleles[2],collapse='',sep=''))
+            return(sapply(x,match,geno) - 1)
+    }
+
     source('alleleCounts.R')
 
     ## Apply the function to the genotype data, one column (SNP) at a time. 
@@ -150,6 +161,13 @@ variation across genomic loci (i.e., SNPs). Rather than looking at 2302 dimensio
 
     ```r
     ## Load custom function to perform principal components analysis
+    pcaGenotypes <- function(x){
+        sm<-colMeans(x/2)
+        gg <- t(t(x/2) - rowMeans(t(x/2))) / sqrt(sm*(1-sm))
+        hh <- 1/ncol(x) * gg%*%t(gg)
+        return(eigen(hh)$vectors[,1:3])
+    }
+
     source("pcaGenotypes.R")
 
     ## Apply this function to the allele count data
@@ -189,6 +207,20 @@ Now we can plot the principal components and colour the points based on the popu
 !!! r-project
 ``` r
 ## Load a custom plotting function to generate the plots:
+plotPCA <- function(x,y){
+  par(mfrow=c(2,2))
+  plot(0,0,col='white',xlim=c(0,1),ylim=c(0,1),axes=FALSE,xlab='',ylab='')
+    #   legend(0.1,0.9,fill=rainbow(length(table(y))),names(table(names(y))))
+  colTab = table(popCol,names(popCol))
+  colTab = colTab[apply(colTab,2,which.max),]
+  pCol = rownames(colTab)
+  names(pCol) = colnames(colTab)
+  legend(0.1,0.9,fill=pCol,names(pCol))
+  plot(x[,1],x[,2],pch=20,col=popCol,xlab="PC 1", ylab="PC 2")
+  plot(x[,1],x[,3],pch=20,col=popCol,xlab="PC 1", ylab="PC 3")
+  plot(x[,2],x[,3],pch=20,col=popCol,xlab="PC 2", ylab="PC 3")
+}
+
 source('plotPCA.R')
 
 ## Plot the PCA data that we have generated, along with the population information
@@ -224,6 +256,19 @@ To calculate similarities, we need to create a set of “average” genotypes fo
 !!! r-project
 ``` r
 ## Load custom function for calculating major homozygote frequency:
+calcMajorFreq<-function(x,y){
+## x is count-based genotypes
+## y is population data  
+  pops<-names(table(y))
+  gtFreq<-matrix(0,length(pops),ncol(x))
+  for(i in seq(pops))
+    gtFreq[i,] <- apply(x[as.vector(y)==pops[i],],2,function(z) 1-prop.table(table(z))[1])
+  gtFreq[is.na(gtFreq)]<-0
+  rownames(gtFreq)<-pops
+  colnames(gtFreq)<-colnames(x)
+  return(gtFreq)
+}
+
 source('calcMajorFreq.R')
 
 ## Apply this function to the SNP count data
