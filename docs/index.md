@@ -1,8 +1,6 @@
 <h1><b>Welcome to Introduction to R at IndigiData Aotearoa</b></h1>
 
-## Preamble
-
-Goals:
+## Goals
 
 * What is R and why is it relevant for bioinformatics?
 * Introduction to coding in R: functions and objects
@@ -10,8 +8,6 @@ Goals:
 * Use ggplot2 to create high quality images.
 
 
-
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
 
 
 

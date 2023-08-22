@@ -1,0 +1,750 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+        <meta name="author" content="Genomics Aotearoa">
+      
+      
+        <link rel="canonical" href="https://genomicsaotearoa.github.io/IndigiDataAotearoa_IntroToR/2_WorkingWithData/">
+      
+      <link rel="icon" href="../theme_figures/nesi_ga.png">
+      <meta name="generator" content="mkdocs-1.3.1, mkdocs-material-8.3.9">
+    
+    
+      
+        <title>Analysing genetic variant data in R - IndigiDataAotearoa_IntroToR</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.1d29e8d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.cbb835fc.min.css">
+        
+      
+      
+    
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mukta:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Mukta";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("..",location),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="custom" data-md-color-accent="">
+  
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&"object"==typeof palette.color)for(var key of Object.keys(palette.color))document.body.setAttribute("data-md-color-"+key,palette.color[key])</script>
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#analysing-genetic-variant-data-in-r" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+<!-- Custom Banner -->
+<div class="banner">
+    <p style="color:rgb(250, 246, 246); display:inline;font-size: 160%;">This repository is in the early stages of development (Alpha Version)</p>
+</div>
+
+<!-- Original Header -->
+
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="IndigiDataAotearoa_IntroToR" class="md-header__button md-logo" aria-label="IndigiDataAotearoa_IntroToR" data-md-component="logo">
+      
+  <img src="../theme_figures/nesi_ga.png" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2Z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            IndigiDataAotearoa_IntroToR
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Analysing genetic variant data in R
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <form class="md-header__option" data-md-component="palette">
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme)" data-md-color-scheme="" data-md-color-primary="custom" data-md-color-accent=""  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+          
+            <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_3" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m14.3 16-.7-2h-3.2l-.7 2H7.8L11 7h2l3.2 9h-1.9M20 8.69V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69m-9.15 3.96h2.3L12 9l-1.15 3.65Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="custom" data-md-color-accent=""  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_2">
+          
+            <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+          
+          
+          <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="custom" data-md-color-accent=""  aria-label="Switch to system preference"  type="radio" name="__palette" id="__palette_3">
+          
+            <label class="md-header__button md-icon" title="Switch to system preference" for="__palette_2" hidden>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12c0-2.42-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12 20 8.69Z"/></svg>
+            </label>
+          
+        
+      </form>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5Z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" aria-label="Clear" tabindex="-1">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/GenomicsAotearoa/IndigiDataAotearoa_IntroToR" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GenomicsAotearoa/IndigiDataAotearoa_IntroToR
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="IndigiDataAotearoa_IntroToR" class="md-nav__button md-logo" aria-label="IndigiDataAotearoa_IntroToR" data-md-component="logo">
+      
+  <img src="../theme_figures/nesi_ga.png" alt="logo">
+
+    </a>
+    IndigiDataAotearoa_IntroToR
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/GenomicsAotearoa/IndigiDataAotearoa_IntroToR" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.1.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2022 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GenomicsAotearoa/IndigiDataAotearoa_IntroToR
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        Home
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../1_Background/" class="md-nav__link">
+        Introduction to the R programming languange
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          Analysing genetic variant data in R
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        Analysing genetic variant data in R
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-data-single-nucleotide-polymorphisms-snps-from-the-1000-genomes-project" class="md-nav__link">
+    The data: Single Nucleotide Polymorphisms (SNPS) from the 1000 Genomes Project
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-snps" class="md-nav__link">
+    What are SNPs?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#looking-at-snp-frequencies" class="md-nav__link">
+    Looking at SNP frequencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Looking at SNP frequencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-look-at-these-snps" class="md-nav__link">
+    Why look at these SNPs?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../3_AnalysingTwoDataTypes/" class="md-nav__link">
+        R for statistical tools and tests
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#the-data-single-nucleotide-polymorphisms-snps-from-the-1000-genomes-project" class="md-nav__link">
+    The data: Single Nucleotide Polymorphisms (SNPS) from the 1000 Genomes Project
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-are-snps" class="md-nav__link">
+    What are SNPs?
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#looking-at-snp-frequencies" class="md-nav__link">
+    Looking at SNP frequencies
+  </a>
+  
+    <nav class="md-nav" aria-label="Looking at SNP frequencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#why-look-at-these-snps" class="md-nav__link">
+    Why look at these SNPs?
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content" data-md-component="content">
+            <article class="md-content__inner md-typeset">
+              
+                
+  <a href="https://github.com/GenomicsAotearoa/IndigiDataAotearoa_IntroToR/edit/master/docs/2_WorkingWithData.md" title="Edit this page" class="md-content__button md-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25Z"/></svg>
+  </a>
+
+
+
+<h1 id="analysing-genetic-variant-data-in-r">Analysing genetic variant data in R<a class="headerlink" href="#analysing-genetic-variant-data-in-r" title="Permanent link">&para;</a></h1>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Keypoints</label><label for="__tabbed_1_2">Objectives</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<ul>
+<li>R can hold data as Objects and Functions can be used to ask questions of that data</li>
+<li>The 1000 Genomes Project is a public resource for genetic data</li>
+<li>SNPS (Single Nucleotide Polymorphisms) are small changes to our DNA that can be medically relevant</li>
+</ul>
+</div>
+<div class="tabbed-block">
+<ul>
+<li>Load publicly (freely) available data from The 1000 Genomes Project into R</li>
+<li>Understand how SNP data varies between populations</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<h2 id="the-data-single-nucleotide-polymorphisms-snps-from-the-1000-genomes-project">The data: Single Nucleotide Polymorphisms (SNPS) from the 1000 Genomes Project<a class="headerlink" href="#the-data-single-nucleotide-polymorphisms-snps-from-the-1000-genomes-project" title="Permanent link">&para;</a></h2>
+<p>The data you will be working with today is publicly available high-throughput sequencing data from a resource called the 1000 genomes project. </p>
+<p>We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (<code>/home/$USER/IndigiDataIntroToR/</code>). To read the 'snpData.txt' data file into R, we will use the read.table() function:</p>
+<div class="admonition r-project">
+<p class="admonition-title">R-project</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Read in the txt file and save it as &#39;snpData&#39;</span>
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">snpData</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;/home/&lt;USERID&gt;/IndigiDataIntroToR/snpData.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&#39;\t&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Here we used the read.table function to follow a file path, select a file (snpData.txt), and read it (with the help of some extra arguments like 'sep' and 'header' that tell R about the format of the file). </p>
+<p>We've also done something new: we have taken the output of the read.table function and stored it in something called an object. In other languages we might use the term 'variable'. </p>
+<p>Let's use some other functions to inspect the data and learn basic facts about the structure of our data object:</p>
+<div class="admonition r-project">
+<p class="admonition-title">R-project</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># The dim function will tell us how many rows (individuals) and columns the dataset contains:</span>
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
+<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nf">dim</span><span class="p">(</span><span class="n">snpData</span><span class="p">)</span>
+<a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>
+<a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="c1">## [1] 2504     9</span>
+</code></pre></div>
+</div>
+<p>This tells us there are 2504 rows and 9 columns. We know that the rows are individuals, but what are the columns? </p>
+<p>The 'names' function can be used to the column names:</p>
+<div class="admonition r-project">
+<p class="admonition-title">R-project</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="nf">names</span><span class="p">(</span><span class="n">snpData</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<details class="success">
+<summary>Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>## [1] &quot;SubjectID&quot;  &quot;Population&quot; &quot;rs3826656&quot;  &quot;rs13387042&quot; &quot;rs4779584&quot;  &quot;rs2398162&quot;  &quot;rs1344706&quot;  &quot;rs7659604&quot;  &quot;rs734553&quot;
+</code></pre></div>
+</details>
+<p>This function shows us the names of the nine columns: The first two tell us the SubjectID (an identifier for the individual from whom the data was collected) and Population (where the individual came from). The next seven names are "rs" followed by a string of numbers. These rs numbers are SNP names - each known SNP has a unique identifier. </p>
+<h2 id="what-are-snps">What <strong>are</strong> SNPs?<a class="headerlink" href="#what-are-snps" title="Permanent link">&para;</a></h2>
+<p>SNPs (Single Nucleotide Polymorphisms) are places in the genome where some individuals in the population have variation at a single DNA base (e.g., some people may have an "A" base at a certain location in the genome, while others have a "G" at that exact same location). The majority of SNPs don't have a (known) impact on health or function, but some do. One of the things we often ask about a SNP is how common is it in the population.</p>
+<p>To look at the full dataset, you can use the View() function:</p>
+<div class="admonition r-project">
+<p class="admonition-title">R-project</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="nf">View</span><span class="p">(</span><span class="n">snpData</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>For each individual we can see the base pairs they have at the particular SNP location (locus) in the genome. Note that there are always two bases, one from each pair of chromosomes, so if a SNP is either an A or G an individual can be AA, AG, or GG. </p>
+<p>The second column is called “Population”. We can make a table of this information to see how many individuals are present in each population (the “$” sign tells R to use the “Population” column from the “snpData”” object):</p>
+<div class="admonition r-project">
+<p class="admonition-title">R-project</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<details class="success">
+<summary>Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>AFR AMR EAS EUR SAS 
+<a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>661 347 504 503 489
+</code></pre></div>
+</details>
+<p>The super-population codes are:</p>
+<p>AFR, African; 
+AMR, Ad-Mixed American; 
+EAS, East Asian; 
+EUR, European;
+SAS, South Asian.</p>
+<p>Additional information about the composition of these populations can be
+found at:</p>
+<p><a href="http://www.internationalgenome.org/faq/which-populations-are-part-your-study">http://www.internationalgenome.org/faq/which-populations-are-part-your-study</a></p>
+<h2 id="looking-at-snp-frequencies">Looking at SNP frequencies<a class="headerlink" href="#looking-at-snp-frequencies" title="Permanent link">&para;</a></h2>
+<p>The other seven columns in the data set relate to specific single
+nucleotide polymorphisms (SNPs) in the genome - we have the genotype
+data for each SNP for every individual in the data set.</p>
+<p>We can use the “table” command again to summarize the genotype
+information for each SNP:</p>
+<div class="admonition r-project">
+<p class="admonition-title">R-project</p>
+</div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">## Make a genotype frequency table for the first SNP</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">)</span>
+</code></pre></div>
+<details class="success">
+<summary>Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>  AA   AG   GG 
+<a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a> 1112  952  440
+</code></pre></div>
+</details>
+<p>We can also calculate the proportions associated with each genotype:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">## Calculate proportions</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">))</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>## 
+##        AA        AG        GG 
+## 0.4440895 0.3801917 0.1757188
+</code></pre></div>
+<p>and examine differences in genotype frequencies across populations:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">## Create contingeny table - genotypes across populations</span>
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>##      
+##        AA  AG  GG
+##   AFR 445 199  17
+##   AMR 225 109  13
+##   EAS  47 224 233
+##   EUR 312 161  30
+##   SAS  83 259 147
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">## And calculate proportions (rounded)</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nf">round</span><span class="p">(</span><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">),</span><span class="m">1</span><span class="p">),</span><span class="m">2</span><span class="p">)</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code>##      
+##         AA   AG   GG
+##   AFR 0.67 0.30 0.03
+##   AMR 0.65 0.31 0.04
+##   EAS 0.09 0.44 0.46
+##   EUR 0.62 0.32 0.06
+##   SAS 0.17 0.53 0.30
+</code></pre></div>
+<p>These results can be plotted as a bar plot:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">snpFreqs</span> <span class="o">=</span> <span class="nf">t</span><span class="p">(</span><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">),</span> <span class="m">1</span><span class="p">))</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nf">barplot</span><span class="p">(</span><span class="n">snpFreqs</span><span class="p">,</span> <span class="n">beside</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">legend.text</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+</code></pre></div>
+<p><img alt="images" src="../figures/snpFreqs.png" /></p>
+<p>These analyses can be repeated for different SNPs by changing the SNP ID
+(e.g., rs3826656) in the above commands.</p>
+<h3 id="why-look-at-these-snps">Why look at these SNPs?<a class="headerlink" href="#why-look-at-these-snps" title="Permanent link">&para;</a></h3>
+<p>The seven SNPs contained in this data set were not just randomly chosen - they are SNPs that have been found to be associated with altered disease risk. That is, an individual’s genotype at a particular position in the genome affects their risk of developing a particular disease. This is not absolute though, it really just raises or lowers the probability of disease - it doesn’t guarantee complete protection or susceptibility.</p>
+<table>
+<thead>
+<tr>
+<th>SNP</th>
+<th>Link</th>
+<th>Alleles</th>
+<th>Nearby Gene</th>
+<th>Disease</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>rs3826656</td>
+<td><a href="http://www.snpedia.com/index.php/Rs3826656">http://www.snpedia.com/index.php/Rs3826656</a></td>
+<td>A/G</td>
+<td>CD33</td>
+<td>Alzheimer’s Disease</td>
+</tr>
+<tr>
+<td>rs13387042</td>
+<td><a href="http://www.snpedia.com/index.php/Rs13387042">http://www.snpedia.com/index.php/Rs13387042</a></td>
+<td>A/G</td>
+<td>DIRC3</td>
+<td>Breast Cancer</td>
+</tr>
+<tr>
+<td>rs4779584</td>
+<td><a href="http://www.snpedia.com/index.php/Rs4779584">http://www.snpedia.com/index.php/Rs4779584</a></td>
+<td>T/C</td>
+<td>GREM1</td>
+<td>Colorectal Cancer</td>
+</tr>
+<tr>
+<td>rs2398162</td>
+<td><a href="http://www.snpedia.com/index.php/Rs2398162">http://www.snpedia.com/index.php/Rs2398162</a></td>
+<td>A/G</td>
+<td>NR2F2</td>
+<td>Hypertension</td>
+</tr>
+<tr>
+<td>rs1344706</td>
+<td><a href="http://www.snpedia.com/index.php/Rs1344706">http://www.snpedia.com/index.php/Rs1344706</a></td>
+<td>A/C</td>
+<td>ZNF408A</td>
+<td>Schizophrenia and Bipolar Disorder</td>
+</tr>
+<tr>
+<td>rs7659604</td>
+<td><a href="http://www.snpedia.com/index.php/Rs7659604">http://www.snpedia.com/index.php/Rs7659604</a></td>
+<td>T/C</td>
+<td>TMEM155</td>
+<td>Type 2 Diabetes</td>
+</tr>
+<tr>
+<td>rs734553</td>
+<td><a href="http://www.snpedia.com/index.php/Rs734553">http://www.snpedia.com/index.php/Rs734553</a></td>
+<td>T/G</td>
+<td>SLC2A9</td>
+<td>Gout</td>
+</tr>
+</tbody>
+</table>
+<p>For each SNP, increased risk of disease is associated with the minor
+allele. Variation in genotype frequencies across populations can help to
+explain some of the population-specific differences in rates of
+different diseases.</p>
+<p>Clicking on SNP IDs in the table above will link through to aditional
+information about each variant.</p>
+
+              
+            </article>
+            
+          </div>
+        </div>
+        
+          <a href="#" class="md-top md-icon" data-md-component="top" hidden>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12Z"/></svg>
+            Back to top
+          </a>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+    <nav class="md-footer__inner md-grid" aria-label="Footer" >
+      
+        
+        <a href="../1_Background/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Introduction to the R programming languange" rel="prev">
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Introduction to the R programming languange
+            </div>
+          </div>
+        </a>
+      
+      
+        
+        <a href="../3_AnalysingTwoDataTypes/" class="md-footer__link md-footer__link--next" aria-label="Next: R for statistical tools and tests" rel="next">
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              R for statistical tools and tests
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      IndigiDataAotearoa_IntroToR workshop material is licensed under a <a rel="noopener" target="_blank" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.tracking", "navigation.sections", "navigation.expand", "navigation.top", "navigation.footer", "content.code.copy", "content.code.annotate"], "search": "../assets/javascripts/workers/search.b97dbffb.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version.title": "Select version"}}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.6c7ad80a.min.js"></script>
+      
+        <script src="../javascripts/mathjax.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+      
+    
+  </body>
+</html>

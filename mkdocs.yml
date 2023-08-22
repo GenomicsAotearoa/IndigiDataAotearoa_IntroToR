@@ -1,4 +1,4 @@
-site_name: IndigiDataAotearoa_IntroToR
+site_name: Indigidata Aotearoa Intro To R
 site_author: Genomics Aotearoa
 site_dir: public
 site_url: "https://genomicsaotearoa.github.io/IndigiDataAotearoa_IntroToR/"
@@ -118,7 +118,7 @@ plugins:
   - search:
       lang: en
 
-copyright : Intermediate-R workshop material is licensed under a <a rel="noopener" target="_blank" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0</a>
+copyright : IndigiDataAotearoa_IntroToR workshop material is licensed under a <a rel="noopener" target="_blank" href="https://www.gnu.org/licenses/gpl-3.0.en.html">GNU General Public License v3.0</a>
 
 
 extra_css:
