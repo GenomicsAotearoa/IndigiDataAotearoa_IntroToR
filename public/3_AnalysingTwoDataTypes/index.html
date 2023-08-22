@@ -17,7 +17,7 @@
     
     
       
-        <title>R for statistical tools and tests - IndigiDataAotearoa_IntroToR</title>
+        <title>R for statistical tools and tests - Indigidata Aotearoa Intro To R</title>
       
     
     
@@ -90,7 +90,7 @@
 
 <header class="md-header" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="IndigiDataAotearoa_IntroToR" class="md-header__button md-logo" aria-label="IndigiDataAotearoa_IntroToR" data-md-component="logo">
+    <a href=".." title="Indigidata Aotearoa Intro To R" class="md-header__button md-logo" aria-label="Indigidata Aotearoa Intro To R" data-md-component="logo">
       
   <img src="../theme_figures/nesi_ga.png" alt="logo">
 
@@ -102,7 +102,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            IndigiDataAotearoa_IntroToR
+            Indigidata Aotearoa Intro To R
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -218,12 +218,12 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="IndigiDataAotearoa_IntroToR" class="md-nav__button md-logo" aria-label="IndigiDataAotearoa_IntroToR" data-md-component="logo">
+    <a href=".." title="Indigidata Aotearoa Intro To R" class="md-nav__button md-logo" aria-label="Indigidata Aotearoa Intro To R" data-md-component="logo">
       
   <img src="../theme_figures/nesi_ga.png" alt="logo">
 
     </a>
-    IndigiDataAotearoa_IntroToR
+    Indigidata Aotearoa Intro To R
   </label>
   
     <div class="md-nav__source">
@@ -574,10 +574,21 @@ B)
 <div class="admonition r-project">
 <p class="admonition-title">R-project</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1">## Load a custom function to convert genotypes (AA, AT, TT) into allele counts (2, 1, 0 if we are counting A&#39;s).</span>
-<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="nf">source</span><span class="p">(</span><span class="s">&#39;alleleCounts.R&#39;</span><span class="p">)</span>
-<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="c1">## Apply the function to the genotype data, one column (SNP) at a time. </span>
-<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">snpAnsCount</span> <span class="o">=</span> <span class="nf">apply</span><span class="p">(</span><span class="n">snpAnsData</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">alleleCounts</span><span class="p">)</span>
+<a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">alleleCounts</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+<a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>    <span class="n">gt</span> <span class="o">&lt;-</span> <span class="nf">names</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>    <span class="n">alleles</span> <span class="o">&lt;-</span> <span class="nf">unique</span><span class="p">(</span><span class="nf">unlist</span><span class="p">(</span><span class="nf">strsplit</span><span class="p">(</span><span class="n">gt</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">)))</span>
+<a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="n">oo</span> <span class="o">&lt;-</span> <span class="nf">order</span><span class="p">(</span><span class="nf">sapply</span><span class="p">(</span><span class="n">alleles</span><span class="p">,</span><span class="nf">function</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="nf">sum</span><span class="p">(</span><span class="nf">grep</span><span class="p">(</span><span class="n">z</span><span class="p">,</span><span class="n">x</span><span class="p">))),</span><span class="n">decreasing</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="n">alleles</span> <span class="o">&lt;-</span> <span class="n">alleles</span><span class="p">[</span><span class="n">oo</span><span class="p">]</span>
+<a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>    <span class="n">geno</span><span class="o">&lt;-</span><span class="nf">c</span><span class="p">(</span><span class="nf">paste</span><span class="p">(</span><span class="n">alleles</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="n">alleles</span><span class="p">[</span><span class="m">1</span><span class="p">],</span><span class="n">collapse</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">),</span>
+<a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>      <span class="nf">paste</span><span class="p">(</span><span class="nf">sort</span><span class="p">(</span><span class="n">alleles</span><span class="p">),</span><span class="n">collapse</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">),</span>  
+<a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>      <span class="nf">paste</span><span class="p">(</span><span class="n">alleles</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="n">alleles</span><span class="p">[</span><span class="m">2</span><span class="p">],</span><span class="n">collapse</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">))</span>
+<a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="nf">return</span><span class="p">(</span><span class="nf">sapply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">match</span><span class="p">,</span><span class="n">geno</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span>
+<a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="p">}</span>
+<a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
+<a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="nf">source</span><span class="p">(</span><span class="s">&#39;alleleCounts.R&#39;</span><span class="p">)</span>
+<a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
+<a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="c1">## Apply the function to the genotype data, one column (SNP) at a time. </span>
+<a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="n">snpAnsCount</span> <span class="o">=</span> <span class="nf">apply</span><span class="p">(</span><span class="n">snpAnsData</span><span class="p">,</span> <span class="m">2</span><span class="p">,</span> <span class="n">alleleCounts</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>We now have a new object that contains just the SNP data represented by allele counts. </p>
@@ -597,11 +608,18 @@ variation across genomic loci (i.e., SNPs). Rather than looking at 2302 dimensio
 <div class="admonition r-project">
 <p class="admonition-title">R-project</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">## Load custom function to perform principal components analysis</span>
-<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nf">source</span><span class="p">(</span><span class="s">&quot;pcaGenotypes.R&quot;</span><span class="p">)</span>
-<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
-<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="c1">## Apply this function to the allele count data</span>
-<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="c1">## This will take a couple of minutes to run</span>
-<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="n">pca</span> <span class="o">=</span> <span class="nf">pcaGenotypes</span><span class="p">(</span><span class="n">snpAnsCount</span><span class="p">)</span>
+<a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">pcaGenotypes</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">){</span>
+<a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="n">sm</span><span class="o">&lt;-</span><span class="nf">colMeans</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="m">2</span><span class="p">)</span>
+<a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="n">gg</span> <span class="o">&lt;-</span> <span class="nf">t</span><span class="p">(</span><span class="nf">t</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="m">2</span><span class="p">)</span> <span class="o">-</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="nf">t</span><span class="p">(</span><span class="n">x</span><span class="o">/</span><span class="m">2</span><span class="p">)))</span> <span class="o">/</span> <span class="nf">sqrt</span><span class="p">(</span><span class="n">sm</span><span class="o">*</span><span class="p">(</span><span class="m">1</span><span class="o">-</span><span class="n">sm</span><span class="p">))</span>
+<a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="n">hh</span> <span class="o">&lt;-</span> <span class="m">1</span><span class="o">/</span><span class="nf">ncol</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">*</span> <span class="n">gg</span><span class="o">%*%</span><span class="nf">t</span><span class="p">(</span><span class="n">gg</span><span class="p">)</span>
+<a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="nf">return</span><span class="p">(</span><span class="nf">eigen</span><span class="p">(</span><span class="n">hh</span><span class="p">)</span><span class="o">$</span><span class="n">vectors</span><span class="p">[,</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span>
+<a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="p">}</span>
+<a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
+<a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="nf">source</span><span class="p">(</span><span class="s">&quot;pcaGenotypes.R&quot;</span><span class="p">)</span>
+<a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+<a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="c1">## Apply this function to the allele count data</span>
+<a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="c1">## This will take a couple of minutes to run</span>
+<a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="n">pca</span> <span class="o">=</span> <span class="nf">pcaGenotypes</span><span class="p">(</span><span class="n">snpAnsCount</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>To visualise the populations across the principal components, we need to define colours for each populations. It doesn't matter what colours you choose, but lets go with: AFR (brown), AMR (red), EAS (purple), EUR (blue), SAS (green).</p>
@@ -635,10 +653,24 @@ variation across genomic loci (i.e., SNPs). Rather than looking at 2302 dimensio
 <p class="admonition-title">R-project</p>
 </div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1">## Load a custom plotting function to generate the plots:</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nf">source</span><span class="p">(</span><span class="s">&#39;plotPCA.R&#39;</span><span class="p">)</span>
-<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
-<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="c1">## Plot the PCA data that we have generated, along with the population information</span>
-<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="nf">plotPCA</span><span class="p">(</span><span class="n">pca</span><span class="p">,</span> <span class="n">popCol</span><span class="p">)</span>
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">plotPCA</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">){</span>
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>  <span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>  <span class="nf">plot</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">0</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">,</span><span class="n">xlim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">),</span><span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span><span class="n">ylab</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>    <span class="c1">#   legend(0.1,0.9,fill=rainbow(length(table(y))),names(table(names(y))))</span>
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>  <span class="n">colTab</span> <span class="o">=</span> <span class="nf">table</span><span class="p">(</span><span class="n">popCol</span><span class="p">,</span><span class="nf">names</span><span class="p">(</span><span class="n">popCol</span><span class="p">))</span>
+<a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>  <span class="n">colTab</span> <span class="o">=</span> <span class="n">colTab</span><span class="p">[</span><span class="nf">apply</span><span class="p">(</span><span class="n">colTab</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="n">which.max</span><span class="p">),]</span>
+<a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>  <span class="n">pCol</span> <span class="o">=</span> <span class="nf">rownames</span><span class="p">(</span><span class="n">colTab</span><span class="p">)</span>
+<a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>  <span class="nf">names</span><span class="p">(</span><span class="n">pCol</span><span class="p">)</span> <span class="o">=</span> <span class="nf">colnames</span><span class="p">(</span><span class="n">colTab</span><span class="p">)</span>
+<a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>  <span class="nf">legend</span><span class="p">(</span><span class="m">0.1</span><span class="p">,</span><span class="m">0.9</span><span class="p">,</span><span class="n">fill</span><span class="o">=</span><span class="n">pCol</span><span class="p">,</span><span class="nf">names</span><span class="p">(</span><span class="n">pCol</span><span class="p">))</span>
+<a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span><span class="n">x</span><span class="p">[,</span><span class="m">2</span><span class="p">],</span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="n">popCol</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;PC 1&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;PC 2&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[,</span><span class="m">1</span><span class="p">],</span><span class="n">x</span><span class="p">[,</span><span class="m">3</span><span class="p">],</span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="n">popCol</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;PC 1&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;PC 3&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>  <span class="nf">plot</span><span class="p">(</span><span class="n">x</span><span class="p">[,</span><span class="m">2</span><span class="p">],</span><span class="n">x</span><span class="p">[,</span><span class="m">3</span><span class="p">],</span><span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span><span class="n">col</span><span class="o">=</span><span class="n">popCol</span><span class="p">,</span><span class="n">xlab</span><span class="o">=</span><span class="s">&quot;PC 2&quot;</span><span class="p">,</span> <span class="n">ylab</span><span class="o">=</span><span class="s">&quot;PC 3&quot;</span><span class="p">)</span>
+<a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="p">}</span>
+<a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+<a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a><span class="nf">source</span><span class="p">(</span><span class="s">&#39;plotPCA.R&#39;</span><span class="p">)</span>
+<a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>
+<a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a><span class="c1">## Plot the PCA data that we have generated, along with the population information</span>
+<a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a><span class="nf">plotPCA</span><span class="p">(</span><span class="n">pca</span><span class="p">,</span> <span class="n">popCol</span><span class="p">)</span>
 </code></pre></div>
 <p><img alt="images" src="../figures/pcaPlot.png" /></p>
 <p>From the plots we can see that samples from the same population tend to cluster together, and that the first three principal components do a reasonable job of capturing the genetic diversity between the populations.</p>
@@ -659,11 +691,24 @@ variation across genomic loci (i.e., SNPs). Rather than looking at 2302 dimensio
 <p class="admonition-title">R-project</p>
 </div>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1">## Load custom function for calculating major homozygote frequency:</span>
-<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="nf">source</span><span class="p">(</span><span class="s">&#39;calcMajorFreq.R&#39;</span><span class="p">)</span>
-<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
-<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1">## Apply this function to the SNP count data</span>
-<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a><span class="c1">## Takes a few seconds</span>
-<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a><span class="n">popFreqs</span> <span class="o">=</span> <span class="nf">calcMajorFreq</span><span class="p">(</span><span class="n">snpAnsCount</span><span class="p">,</span> <span class="n">ansPop</span><span class="p">)</span>
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="n">calcMajorFreq</span><span class="o">&lt;-</span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">){</span>
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a><span class="c1">## x is count-based genotypes</span>
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a><span class="c1">## y is population data  </span>
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>  <span class="n">pops</span><span class="o">&lt;-</span><span class="nf">names</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">y</span><span class="p">))</span>
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>  <span class="n">gtFreq</span><span class="o">&lt;-</span><span class="nf">matrix</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="nf">length</span><span class="p">(</span><span class="n">pops</span><span class="p">),</span><span class="nf">ncol</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>
+<a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>  <span class="nf">for</span><span class="p">(</span><span class="n">i</span> <span class="n">in</span> <span class="nf">seq</span><span class="p">(</span><span class="n">pops</span><span class="p">))</span>
+<a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>    <span class="n">gtFreq</span><span class="p">[</span><span class="n">i</span><span class="p">,]</span> <span class="o">&lt;-</span> <span class="nf">apply</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="nf">as.vector</span><span class="p">(</span><span class="n">y</span><span class="p">)</span><span class="o">==</span><span class="n">pops</span><span class="p">[</span><span class="n">i</span><span class="p">],],</span><span class="m">2</span><span class="p">,</span><span class="nf">function</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="m">1</span><span class="o">-</span><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">z</span><span class="p">))[</span><span class="m">1</span><span class="p">])</span>
+<a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>  <span class="n">gtFreq</span><span class="p">[</span><span class="nf">is.na</span><span class="p">(</span><span class="n">gtFreq</span><span class="p">)]</span><span class="o">&lt;-</span><span class="m">0</span>
+<a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>  <span class="nf">rownames</span><span class="p">(</span><span class="n">gtFreq</span><span class="p">)</span><span class="o">&lt;-</span><span class="n">pops</span>
+<a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>  <span class="nf">colnames</span><span class="p">(</span><span class="n">gtFreq</span><span class="p">)</span><span class="o">&lt;-</span><span class="nf">colnames</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+<a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>  <span class="nf">return</span><span class="p">(</span><span class="n">gtFreq</span><span class="p">)</span>
+<a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a><span class="p">}</span>
+<a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>
+<a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a><span class="nf">source</span><span class="p">(</span><span class="s">&#39;calcMajorFreq.R&#39;</span><span class="p">)</span>
+<a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>
+<a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a><span class="c1">## Apply this function to the SNP count data</span>
+<a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a><span class="c1">## Takes a few seconds</span>
+<a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a><span class="n">popFreqs</span> <span class="o">=</span> <span class="nf">calcMajorFreq</span><span class="p">(</span><span class="n">snpAnsCount</span><span class="p">,</span> <span class="n">ansPop</span><span class="p">)</span>
 </code></pre></div>
 <div class="admonition r-project">
 <p class="admonition-title">R-project</p>
