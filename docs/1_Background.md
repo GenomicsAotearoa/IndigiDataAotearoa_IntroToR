@@ -65,11 +65,6 @@ Development Environment
 RStudio, like most IDEs, provides a graphical interface to R, making it
 more user-friendly, and providing dozens of useful features. We will
 introduce additional benefits of using RStudio as you cover the lessons.
-In this case, we are specifically using [RStudio
-Server](https://www.rstudio.com/products/RStudio/#Server), a version of
-RStudio that can be accessed in your web browser. RStudio Server has the
-same features of the Desktop version of RStudio you could download as
-standalone software.
 
 
 ![image](./figures/rstudio_session_default.png){width="700"}
@@ -126,7 +121,7 @@ to more easily:
     
     2.  In the window that opens select **Existing Directory**  
         Then select **Browse....**   
-        Choose and then click "~/IndigiDataIntroToR".  
+        Choose and then click "~/Documents/IndigiDataIntroToR".  
     
     3.  Finally click `Create Project`. In the
         "Files" tab of your output pane (more about the RStudio layout in a
@@ -172,7 +167,7 @@ the Source pane.
 In the console, we expect to see the following output :
 
 !!! solution ""
-    `[1] "/home/<USERID>/IndigiDataIntroToR"`
+    `[1] "/home/Documents/IndigiDataIntroToR"`
 
 * Notice, at the Console, you will also see the instruction you executed above the output in blue.
 
@@ -184,7 +179,9 @@ include a comment on the purpose of commands you are learning, e.g.:
 
 !!! r-project
 
-    `# this command shows the current working directory getwd()`
+    `# this command shows the current working directory 
+    
+    getwd()`
 
 !!! question "Exercise : Work interactively in R"   
    
@@ -199,58 +196,9 @@ include a comment on the purpose of commands you are learning, e.g.:
          instead of entering commands one-by-one. 
          
 For the purposes of this exercise we want you to be in the directory
-`"/home/<USERID>/IndigiDataIntroToR"`. What if you weren't? You can set your home
-directory using the `setwd()` command. Enter this command in your
-script, but *don't run* this yet.
+`"/home/<USERID>/IndigiDataIntroToR"`. What if you weren't? You can set your home directory using the `setwd()` command. Alternatively, RStudio has a helpful button for setting your working directory (*note* that this is a very simplified way to set your working directory, and this is actually a bit more complex in practice.)
 
-!!! r-project
-
-    ```r
-    # This sets the working directory 
     
-    setwd()
-    ```
-
-
-
-You may have guessed, you need to tell the `setwd()` command what
-directory you want to set as your working directory. To do so, inside of
-the parentheses, open a set of quotes. Inside the quotes enter a `/`
-which is the root directory for Linux. Next, use the
-`Tab` key, to take advantage of RStudio's
-Tab-autocompletion method, to select `home`, `user`, and
-`IndigiDataIntroToR` directory. The path in your script should look like this:
-
-!!! r-project
-
-    ```r
-    # This sets the working directory 
-    
-    setwd("/home/<USERID>/IndigiDataIntroToR")
-    ```
-
-When you run this command, the console repeats the command, but gives
-you no output. Instead, you see the blank R prompt: `>`.
-Congratulations! Although it seems small, knowing what your working
-directory is and being able to set your working directory is the first
-step to analyzing your data.
-
-!!! tip  "Never use `setwd()`"
-
-Wait, what was the last 2 minutes about? Well, setting your working
-    directory is something you need to do, you need to be very careful
-    about using this as a step in your script. For example, what if your
-    script is being on a computer that has a different directory
-    structure? The top-level path in a Unix file system is root `/`, but
-    on Windows it is likely `C:\`. This is one of several ways you might
-    cause a script to break because a file path is configured differently
-    than your script anticipates. R packages like
-    [here](https://cran.r-project.org/package=here) and
-    [file.path](https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/file.path)
-    allow you to specify file paths is a way that is more operating system
-    independent. See Jenny Bryan's [blog
-    post](https://www.tidyverse.org/articles/2017/12/workflow-vs-script/)
-    for this and other R tips.    
 
 ## Using functions in R, without needing to master them
 
