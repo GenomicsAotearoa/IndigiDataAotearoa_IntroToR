@@ -40,16 +40,12 @@ Now we now have a *much* larger dataset: 2504 individuals and 2302 SNP genotypes
 
         A)
 
-        !!! r-project
-
             ```r
             View(snpAns)
             ```
         
         
         B)
-
-        !!! r-project
 
             ```r
             names(snpAns)
