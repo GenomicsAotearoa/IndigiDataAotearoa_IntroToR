@@ -469,12 +469,12 @@
 </div>
 <h2 id="the-data-single-nucleotide-polymorphisms-snps-from-the-1000-genomes-project">The data: Single Nucleotide Polymorphisms (SNPS) from the 1000 Genomes Project<a class="headerlink" href="#the-data-single-nucleotide-polymorphisms-snps-from-the-1000-genomes-project" title="Permanent link">&para;</a></h2>
 <p>The data you will be working with today is publicly available high-throughput sequencing data from a resource called the 1000 genomes project. </p>
-<p>We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (<code>/home/$USER/IndigiDataIntroToR/</code>). To read the 'snpData.txt' data file into R, we will use the read.table() function:</p>
+<p>We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (<code>/home/Documents/IndigiDataIntroToR/</code>). To read the 'snpData.txt' data file into R, we will use the read.table() function:</p>
 <div class="admonition r-project">
 <p class="admonition-title">R-project</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># Read in the txt file and save it as &#39;snpData&#39;</span>
 <a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">snpData</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;/home/&lt;USERID&gt;/IndigiDataIntroToR/snpData.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&#39;\t&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
+<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">snpData</span> <span class="o">&lt;-</span> <span class="nf">read.table</span><span class="p">(</span><span class="s">&quot;/home/Documents/IndigiDataIntroToR/snpData.txt&quot;</span><span class="p">,</span><span class="n">sep</span><span class="o">=</span><span class="s">&#39;\t&#39;</span><span class="p">,</span><span class="n">header</span><span class="o">=</span><span class="bp">T</span><span class="p">)</span>
 </code></pre></div>
 </div>
 <p>Here we used the read.table function to follow a file path, select a file (snpData.txt), and read it (with the help of some extra arguments like 'sep' and 'header' that tell R about the format of the file). </p>
@@ -554,36 +554,42 @@ information for each SNP:</p>
 <div class="highlight"><pre><span></span><code><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1">## Calculate proportions</span>
 <a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">))</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>## 
-##        AA        AG        GG 
-## 0.4440895 0.3801917 0.1757188
+<details class="success">
+<summary>Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>        AA        AG        GG 
+<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>   0.4440895 0.3801917 0.1757188
 </code></pre></div>
+</details>
 <p>and examine differences in genotype frequencies across populations:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1">## Create contingeny table - genotypes across populations</span>
-<a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">)</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">## Create contingeny table - genotypes across populations</span>
+<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>##      
-##        AA  AG  GG
-##   AFR 445 199  17
-##   AMR 225 109  13
-##   EAS  47 224 233
-##   EUR 312 161  30
-##   SAS  83 259 147
+<details class="success">
+<summary>Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>        AA  AG  GG
+<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>   AFR 445 199  17
+<a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>   AMR 225 109  13
+<a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>   EAS  47 224 233
+<a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>   EUR 312 161  30
+<a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>   SAS  83 259 147
 </code></pre></div>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1">## And calculate proportions (rounded)</span>
-<a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nf">round</span><span class="p">(</span><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">),</span><span class="m">1</span><span class="p">),</span><span class="m">2</span><span class="p">)</span>
+</details>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1">## And calculate proportions (rounded)</span>
+<a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="nf">round</span><span class="p">(</span><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">),</span><span class="m">1</span><span class="p">),</span><span class="m">2</span><span class="p">)</span>
 </code></pre></div>
-<div class="highlight"><pre><span></span><code>##      
-##         AA   AG   GG
-##   AFR 0.67 0.30 0.03
-##   AMR 0.65 0.31 0.04
-##   EAS 0.09 0.44 0.46
-##   EUR 0.62 0.32 0.06
-##   SAS 0.17 0.53 0.30
+<details class="success">
+<summary>Output</summary>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>         AA   AG   GG
+<a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>   AFR 0.67 0.30 0.03
+<a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>   AMR 0.65 0.31 0.04
+<a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>   EAS 0.09 0.44 0.46
+<a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>   EUR 0.62 0.32 0.06
+<a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>   SAS 0.17 0.53 0.30
 </code></pre></div>
+</details>
 <p>These results can be plotted as a bar plot:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">snpFreqs</span> <span class="o">=</span> <span class="nf">t</span><span class="p">(</span><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">),</span> <span class="m">1</span><span class="p">))</span>
-<a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nf">barplot</span><span class="p">(</span><span class="n">snpFreqs</span><span class="p">,</span> <span class="n">beside</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">legend.text</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="n">snpFreqs</span> <span class="o">=</span> <span class="nf">t</span><span class="p">(</span><span class="nf">prop.table</span><span class="p">(</span><span class="nf">table</span><span class="p">(</span><span class="n">snpData</span><span class="o">$</span><span class="n">Population</span><span class="p">,</span> <span class="n">snpData</span><span class="o">$</span><span class="n">rs3826656</span><span class="p">),</span> <span class="m">1</span><span class="p">))</span>
+<a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="nf">barplot</span><span class="p">(</span><span class="n">snpFreqs</span><span class="p">,</span> <span class="n">beside</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">legend.text</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
 </code></pre></div>
 <p><img alt="images" src="../figures/snpFreqs.png" /></p>
 <p>These analyses can be repeated for different SNPs by changing the SNP ID

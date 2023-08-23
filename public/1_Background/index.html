@@ -311,13 +311,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rstudio-on-nesi" class="md-nav__link">
-    RStudio on Nesi
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#introducing-rstudio-server" class="md-nav__link">
     Introducing RStudio Server
   </a>
@@ -355,13 +348,6 @@
         <li class="md-nav__item">
   <a href="#getting-help-with-function-arguments" class="md-nav__link">
     Getting help with function arguments
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rstudio-contextual-help" class="md-nav__link">
-    RStudio contextual help
   </a>
   
 </li>
@@ -445,13 +431,6 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#rstudio-on-nesi" class="md-nav__link">
-    RStudio on Nesi
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
   <a href="#introducing-rstudio-server" class="md-nav__link">
     Introducing RStudio Server
   </a>
@@ -489,13 +468,6 @@
         <li class="md-nav__item">
   <a href="#getting-help-with-function-arguments" class="md-nav__link">
     Getting help with function arguments
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#rstudio-contextual-help" class="md-nav__link">
-    RStudio contextual help
   </a>
   
 </li>
@@ -578,8 +550,6 @@ R:</p>
 genomics and other areas of life science.</li>
 </ul>
 </div>
-<h2 id="rstudio-on-nesi">RStudio on Nesi<a class="headerlink" href="#rstudio-on-nesi" title="Permanent link">&para;</a></h2>
-<p>Logging into the <a href="https://dinindusenanayake.github.io/ganesi_authesetup-login/1_jupyterlogin/">NeSI Jupyter Interface</a>. </p>
 <h2 id="introducing-rstudio-server">Introducing RStudio Server<a class="headerlink" href="#introducing-rstudio-server" title="Permanent link">&para;</a></h2>
 <p>In these lessons, we will be making use of a software called
 <a href="https://www.rstudio.com/products/RStudio/">RStudio</a>, an <a href="https://en.wikipedia.org/wiki/Integrated_development_environment">Integrated
@@ -587,12 +557,7 @@ Development Environment
 (IDE)</a>.
 RStudio, like most IDEs, provides a graphical interface to R, making it
 more user-friendly, and providing dozens of useful features. We will
-introduce additional benefits of using RStudio as you cover the lessons.
-In this case, we are specifically using <a href="https://www.rstudio.com/products/RStudio/#Server">RStudio
-Server</a>, a version of
-RStudio that can be accessed in your web browser. RStudio Server has the
-same features of the Desktop version of RStudio you could download as
-standalone software.</p>
+introduce additional benefits of using RStudio as you cover the lessons.</p>
 <p><img alt="image" src="../figures/rstudio_session_default.png" width="700" /></p>
 <div class="admonition quote">
 <ul>
@@ -644,7 +609,7 @@ to more easily:</p>
 <li>
 <p>In the window that opens select <strong>Existing Directory</strong><br />
     Then select <strong>Browse....</strong> <br />
-    Choose and then click "~/IndigiDataIntroToR".  </p>
+    Choose and then click "~/Documents/IndigiDataIntroToR".  </p>
 </li>
 <li>
 <p>Finally click <code>Create Project</code>. In the
@@ -684,7 +649,7 @@ button that is just above the first line of your script in the header of
 the Source pane.</p>
 <p>In the console, we expect to see the following output :</p>
 <div class="admonition solution">
-<p><code>[1] "/home/&lt;USERID&gt;/IndigiDataIntroToR"</code></p>
+<p><code>[1] "/home/Documents/IndigiDataIntroToR"</code></p>
 </div>
 <ul>
 <li>Notice, at the Console, you will also see the instruction you executed above the output in blue.</li>
@@ -696,7 +661,8 @@ comment, which R will not try to interpret as code. Edit your script to
 include a comment on the purpose of commands you are learning, e.g.:</p>
 <div class="admonition r-project">
 <p class="admonition-title">R-project</p>
-<p><code># this command shows the current working directory getwd()</code></p>
+<p>`# this command shows the current working directory </p>
+<p>getwd()`</p>
 </div>
 <div class="admonition question">
 <p class="admonition-title">Exercise : Work interactively in R</p>
@@ -711,52 +677,7 @@ include a comment on the purpose of commands you are learning, e.g.:</p>
 </details>
 </div>
 <p>For the purposes of this exercise we want you to be in the directory
-<code>"/home/&lt;USERID&gt;/IndigiDataIntroToR"</code>. What if you weren't? You can set your home
-directory using the <code>setwd()</code> command. Enter this command in your
-script, but <em>don't run</em> this yet.</p>
-<div class="admonition r-project">
-<p class="admonition-title">R-project</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="c1"># This sets the working directory </span>
-<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-<a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nf">setwd</span><span class="p">()</span>
-</code></pre></div>
-</div>
-<p>You may have guessed, you need to tell the <code>setwd()</code> command what
-directory you want to set as your working directory. To do so, inside of
-the parentheses, open a set of quotes. Inside the quotes enter a <code>/</code>
-which is the root directory for Linux. Next, use the
-<code>Tab</code> key, to take advantage of RStudio's
-Tab-autocompletion method, to select <code>home</code>, <code>user</code>, and
-<code>IndigiDataIntroToR</code> directory. The path in your script should look like this:</p>
-<div class="admonition r-project">
-<p class="admonition-title">R-project</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># This sets the working directory </span>
-<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-<a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="nf">setwd</span><span class="p">(</span><span class="s">&quot;/home/&lt;USERID&gt;/IndigiDataIntroToR&quot;</span><span class="p">)</span>
-</code></pre></div>
-</div>
-<p>When you run this command, the console repeats the command, but gives
-you no output. Instead, you see the blank R prompt: <code>&gt;</code>.
-Congratulations! Although it seems small, knowing what your working
-directory is and being able to set your working directory is the first
-step to analyzing your data.</p>
-<div class="admonition tip">
-<p class="admonition-title">Never use <code>setwd()</code></p>
-</div>
-<p>Wait, what was the last 2 minutes about? Well, setting your working
-    directory is something you need to do, you need to be very careful
-    about using this as a step in your script. For example, what if your
-    script is being on a computer that has a different directory
-    structure? The top-level path in a Unix file system is root <code>/</code>, but
-    on Windows it is likely <code>C:\</code>. This is one of several ways you might
-    cause a script to break because a file path is configured differently
-    than your script anticipates. R packages like
-    <a href="https://cran.r-project.org/package=here">here</a> and
-    <a href="https://www.rdocumentation.org/packages/base/versions/3.4.3/topics/file.path">file.path</a>
-    allow you to specify file paths is a way that is more operating system
-    independent. See Jenny Bryan's <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/">blog
-    post</a>
-    for this and other R tips.    </p>
+<code>"/home/&lt;USERID&gt;/IndigiDataIntroToR"</code>. What if you weren't? You can set your home directory using the <code>setwd()</code> command. Alternatively, RStudio has a helpful button for setting your working directory (<em>note</em> that this is a very simplified way to set your working directory, and this is actually a bit more complex in practice.)</p>
 <h2 id="using-functions-in-r-without-needing-to-master-them">Using functions in R, without needing to master them<a class="headerlink" href="#using-functions-in-r-without-needing-to-master-them" title="Permanent link">&para;</a></h2>
 <p>A function in R (or any computing language) is a short program that
 takes some input and returns some output. Functions may seem like an
@@ -803,8 +724,8 @@ the function's behavior. For example the function <code>round()</code> will roun
 number with a decimal:</p>
 <div class="admonition r-project">
 <p class="admonition-title">R-project</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a># This will round a number to the nearest integer
-<a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>round(3.14)
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a># This will round a number to the nearest integer
+<a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>round(3.14)
 </code></pre></div>
 </div>
 <h2 id="getting-help-with-function-arguments">Getting help with function arguments<a class="headerlink" href="#getting-help-with-function-arguments" title="Permanent link">&para;</a></h2>
@@ -854,8 +775,8 @@ script which has dependencies.</p>
 <p>will return an error:</p>
 <div class="admonition failure">
 <p class="admonition-title">Error</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Error in .helpForCall(topicExpr, parent.frame()) :
-<a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>   no methods for ‘geom_point’ and no documentation for it as a function
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Error in .helpForCall(topicExpr, parent.frame()) :
+<a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>   no methods for ‘geom_point’ and no documentation for it as a function
 </code></pre></div>
 </div>
 <p>Use two question marks (i.e. <code>??geom_point()</code>) and R will return results
@@ -885,21 +806,6 @@ you might find: </p>
 </ul>
 </details>
 </div>
-<p>We will discuss more on where to look for the libraries and packages
-that contain functions you want to use. For now, be aware that two
-important ones are <a href="https://cran.r-project.org/">CRAN</a> - the main
-repository for R, and <a href="http://bioconductor.org/">Bioconductor</a> - a
-popular repository for bioinformatics-related R packages.</p>
-<h2 id="rstudio-contextual-help">RStudio contextual help<a class="headerlink" href="#rstudio-contextual-help" title="Permanent link">&para;</a></h2>
-<p>Here is one last bonus we will mention about RStudio. It's difficult to
-remember all of the arguments and definitions associated with a given
-function. When you start typing the name of a function and hit the
-<code>Tab</code> key, RStudio will display functions and
-associated help:</p>
-<p><img alt="images" src="../figures/studio_contexthelp1.png" /></p>
-<p>Once you type a function, hitting the <code>Tab</code>
-inside the parentheses will show you the function's arguments and
-provide additional help for each of these arguments.</p>
 
               
             </article>
