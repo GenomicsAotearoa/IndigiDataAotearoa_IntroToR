@@ -18,14 +18,14 @@
 
 The data you will be working with today is publicly available high-throughput sequencing data from a resource called the 1000 genomes project. 
 
-We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (`/home/$USER/IndigiDataIntroToR/`). To read the 'snpData.txt' data file into R, we will use the read.table() function:
+We have downloaded a (small) subset of the 1000 genomes data, called the file snpData.txt, and placed it in your home directory (`/home/Documents/IndigiDataIntroToR/`). To read the 'snpData.txt' data file into R, we will use the read.table() function:
 
 !!! r-project 
 
     ```r
     # Read in the txt file and save it as 'snpData'
 
-    snpData <- read.table("/home/<USERID>/IndigiDataIntroToR/snpData.txt",sep='\t',header=T)
+    snpData <- read.table("/home/Documents/IndigiDataIntroToR/snpData.txt",sep='\t',header=T)
     ```
 
 Here we used the read.table function to follow a file path, select a file (snpData.txt), and read it (with the help of some extra arguments like 'sep' and 'header' that tell R about the format of the file). 
@@ -138,9 +138,12 @@ We can also calculate the proportions associated with each genotype:
 prop.table(table(snpData$rs3826656))
 ```
 
-    ## 
-    ##        AA        AG        GG 
-    ## 0.4440895 0.3801917 0.1757188
+??? success "Output"
+
+    ```    
+            AA        AG        GG 
+       0.4440895 0.3801917 0.1757188
+    ```
 
 and examine differences in genotype frequencies across populations:
 
@@ -149,27 +152,36 @@ and examine differences in genotype frequencies across populations:
 table(snpData$Population, snpData$rs3826656)
 ```
 
-    ##      
-    ##        AA  AG  GG
-    ##   AFR 445 199  17
-    ##   AMR 225 109  13
-    ##   EAS  47 224 233
-    ##   EUR 312 161  30
-    ##   SAS  83 259 147
+??? success "Output"
+
+    ```          
+            AA  AG  GG
+       AFR 445 199  17
+       AMR 225 109  13
+       EAS  47 224 233
+       EUR 312 161  30
+       SAS  83 259 147
+    ```
+
+
 
 ``` r
 ## And calculate proportions (rounded)
 round(prop.table(table(snpData$Population, snpData$rs3826656),1),2)
 ```
 
+??? success "Output"
 
-    ##      
-    ##         AA   AG   GG
-    ##   AFR 0.67 0.30 0.03
-    ##   AMR 0.65 0.31 0.04
-    ##   EAS 0.09 0.44 0.46
-    ##   EUR 0.62 0.32 0.06
-    ##   SAS 0.17 0.53 0.30
+    ```    
+          
+             AA   AG   GG
+       AFR 0.67 0.30 0.03
+       AMR 0.65 0.31 0.04
+       EAS 0.09 0.44 0.46
+       EUR 0.62 0.32 0.06
+       SAS 0.17 0.53 0.30
+    ```
+
 
 These results can be plotted as a bar plot:
 
